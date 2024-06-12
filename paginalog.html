@@ -11,9 +11,7 @@
         <div class="header-content">
             <h1>PEDAGAMES</h1>
             <div class="flags">
-                <img src="flag1.png" alt="Flag 1">
-                <img src="flag2.png" alt="Flag 2">
-                <img src="flag3.png" alt="Flag 3">
+                <img src="bandeira brasil.png" alt="Bandeira do Brasil">
                 <!-- Adicione mais bandeiras conforme necessário -->
             </div>
         </div>
@@ -23,12 +21,16 @@
             <h2>Login</h2>
             <form action="pagina3.html" method="get">
                 <label for="user-type">ALUNO/PROFESSOR</label>
-                <input type="text" id="user-type" name="user-type" required>
-                
-                <label for="class">TURMA</label>
-                <input type="text" id="class" name="class" required>
-                
-                <button type="submit">Entrar</button>
+                <div class="login-options">
+                    <div class="option">
+                        <img src="professor.jpg" alt="Professor">
+                        <button type="submit" name="role" value="professor">ENTRAR COMO PROFESSOR</button>
+                    </div>
+                    <div class="option">
+                        <img src="3ec80e710822255564344a5a3e9ad1f7.jpg" alt="Aluno">
+                        <button type="submit" name="role" value="aluno">ENTRAR COMO ALUNO</button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
