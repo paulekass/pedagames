@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Pedagames</title>
+    <link rel="stylesheet" href="styles2.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>PEDAGAMES</h1>
+            <div class="flags">
+                <img src="bandeira brasil.png" alt="Bandeira do Brasil">
+                <!-- Adicione mais bandeiras conforme necessário -->
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="login-box">
+            <h2>Login</h2>
+            <form id="loginForm" method="get">
+                <label for="user-type">ALUNO/PROFESSOR</label>
+                <div class="login-options">
+                    <div class="option">
+                        <img src="professor.jpg" alt="Professor">
+                        <button type="button" onclick="redirectTo('professor')">ENTRAR COMO PROFESSOR</button>
+                    </div>
+                    <div class="option">
+                        <img src="3ec80e710822255564344a5a3e9ad1f7.jpg" alt="Aluno">
+                        <button type="button" onclick="redirectTo('aluno')">ENTRAR COMO ALUNO</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        function redirectTo(role) {
+            const form = document.getElementById('loginForm');
+            if (role === 'professor') {
+                form.action = 'pagin3.html';
+            } else {
+                form.action = 'pagina3.html';
+            }
+            form.submit();
+        }
+    </script>
+    
+</body>
+</html>
