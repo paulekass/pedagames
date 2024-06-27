@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+* {
+    font-family: "Press Start 2P", system-ui;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow-y: hidden;
+    background-color: #603a83;
+    height: 100vh;
+    margin: 0;
+}
+
+#top {
+    background-color: #7C5E99;
+    padding: 10px 20px;
+}
+
+#top img {
+    display: block;
+    height: 50px;
+    width: auto;
+    margin: 0 auto;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 100px); /* Desconta a altura do header */
+    flex-direction: column;
+}
+
+#pessoa {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 50px;
+}
+
+#main-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: #3A4042;
+    padding: 20px;
+    color: white;
+}
+
+#proximo {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}
+
+#proximo a {
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 5px;
+}
+
+#git {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+}
+
+#git a {
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    border-radius: 5px;
+}
+
+#card {
+    background-color: #7C5E99;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+a {
+    padding: 10px;
+    margin-top: 10px;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    display: block;
+    background-color: #F25A70;
+    text-shadow: 2px 2px 1px black;
+}
+
+a:hover {
+    background-color: #ad3f50;
+}
+
+@media (max-width: 768px) {
+    #pessoa {
+        flex-direction: column;
+        align-items: center;
+        margin: 20px;
+    }
+    
+    #main-title {
+        align-items: center;
+        text-align: center;
+    }
+
+    #proximo {
+        bottom: 20px;
+        right: 20px;
+    }
+
+    #git {
+        bottom: 20px;
+        left: 20px;
+    }
+}

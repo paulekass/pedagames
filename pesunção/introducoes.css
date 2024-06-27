@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+* { font-family: "Press Start 2P", system-ui;;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+* {
+    font-family: "Press Start 2P", system-ui;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow-y: hidden;
+    background-color: #7C5E99;
+    min-height: 100vh; /* Garante que o body ocupe toda a altura da janela */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#container {
+    max-width: 90%;
+    margin: auto;
+    padding: 20px;
+}
+
+#textos {
+    margin-top: 50px;
+    text-align: left;
+    color: white;
+    text-shadow: 2px 2px 2px black;
+}
+
+#proximo {
+    margin-top: 20px;
+}
+
+#proximo a {
+    padding: 15px 30px;
+    margin-top: 10px;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    display: inline-block;
+    background-color: #F25A70;
+    text-shadow: 2px 2px 1px black;
+    font-size: 20px;
+    border-radius: 5px;
+}
+
+#proximo a:hover {
+    background-color: #ad3f50;
+}
+
+#clara {
+    margin-top: 50px;
+}
+
+p {
+    max-width: 100%;
+    padding: 0 20px;
+    line-height: 1.5em;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    /* Estilos para telas menores que 768px de largura */
+    #textos {
+        margin-top: 20px;
+    }
+
+    p {
+        width: auto;
+        padding: 0 10px;
+        line-height: 1.4em;
+    }
+}

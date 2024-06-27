@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedagames - Bem Vindo(a)!</title>
+    <link rel="stylesheet" href="introducoes.css">
+</head>
+<body>
+    <div id="container">
+        <div id="clara"> 
+            <img src="Projeto/Assets/Img/clara.png" alt="clara">
+        </div>
+        <div id="textos">
+            <h2>Bem vindo(a)!</h2>
+            <form onsubmit="salvarNome(event)">
+                <label for="nome">Qual é o seu nome?</label><br>
+                <input type="text" id="nome" name="nome" required><br><br>
+                <input type="submit" value="Iniciar">
+            </form>
+        </div>
+    </div>
+    <script>
+        function salvarNome(event) {
+            event.preventDefault();
+            const nome = document.getElementById('nome').value;
+            localStorage.setItem('nomeAluno', nome);
+            window.location.href = 'introducao-1.html';
+        }
+    </script>
+</body>
+</html>

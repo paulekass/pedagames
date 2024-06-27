@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedagames - Quiz</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        * {
+            font-family: "Press Start 2P", system-ui;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #5a2d82;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            z-index: 1;
+            max-width: 90%;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        #mapa-container {
+            margin: 20px 0;
+        }
+
+        .opcao {
+            border: none;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background-color 0.3s;
+            width: 150px;
+            height: 50px;
+        }
+
+        #opcoes {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .opcao:nth-child(1) {
+            background-color: #ffcc00; /* Amarelo */
+        }
+
+        .opcao:nth-child(2) {
+            background-color: #00bfff; /* Azul */
+        }
+
+        .opcao:nth-child(3) {
+            background-color: #ff4500; /* Vermelho */
+        }
+
+        .opcao:nth-child(4) {
+            background-color: #32cd32; /* Verde */
+        }
+
+        .opcao:hover {
+            filter: brightness(0.9);
+        }
+
+        #feedback {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+
+        #proxima {
+            display: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #5cb85c;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #proxima:hover {
+            background-color: #4cae4c;
+        }
+
+        .decoracao {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: url('https://i.imgur.com/jtlMgII.png') no-repeat center center;
+            background-size: contain;
+            animation: float 6s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        .decoracao:nth-child(2) {
+            top: 10%;
+            left: 5%;
+        }
+
+        .decoracao:nth-child(3) {
+            top: 20%;
+            right: 10%;
+        }
+
+        .decoracao:nth-child(4) {
+            bottom: 15%;
+            left: 15%;
+        }
+
+        .decoracao:nth-child(5) {
+            bottom: 10%;
+            right: 20%;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        /* Estilos para cores específicas */
+        .cor-amarelo {
+            color: #ffcc00; /* Amarelo */
+        }
+
+        .cor-azul {
+            color: #00bfff; /* Azul */
+        }
+
+        .cor-vermelho {
+            color: #ff4500; /* Vermelho */
+        }
+
+        .cor-verde {
+            color: #32cd32; /* Verde */
+        }
+
+        /* Estilos para telas menores */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5em;
+            }
+
+            .opcao {
+                width: 120px;
+                height: 40px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PEDAGAMES - Quiz</h1>
+        <p>Selecione em que cor está localizado "<span id="estado"></span>" no mapa</p>
+        <div id="mapa-container">
+            <img src="" alt="Imagem do estado" id="imagem-estado" style="max-width: 100%; height: auto;">
+        </div>
+        <div id="opcoes">
+            <button class="opcao" onclick="verificarResposta(1)"></button>
+            <button class="opcao" onclick="verificarResposta(2)"></button>
+            <button class="opcao" onclick="verificarResposta(3)"></button>
+            <button class="opcao" onclick="verificarResposta(4)"></button>
+        </div>
+        <div id="feedback"></div>
+        <button id="proxima" onclick="proximaPergunta()">Próxima Pergunta</button>
+    </div>
+    <script>
+        const perguntas = [
+            { estado: "Acre", cor: 1, imagem: "imagens/estados/acre.png" },
+            { estado: "Alagoas", cor: 2, imagem: "imagens/estados/alagoas.png" },
+            { estado: "Amapá", cor: 3, imagem: "imagens/estados/amapá.png" },
+            { estado: "Amazonas", cor: 4, imagem: "imagens/estados/amazonas.png" },
+            { estado: "Bahia", cor: 2, imagem: "imagens/estados/bahia.png" },
+            { estado: "Ceará", cor: 1, imagem: "imagens/estados/ceara.png" },
+            { estado: "Distrito Federal", cor: 3, imagem: "imagens/estados/df.png" },
+            { estado: "Espírito Santo", cor: 4, imagem: "imagens/estados/esp santo.png" },
+            { estado: "Goiás", cor: 2, imagem: "imagens/estados/goias.png" },
+            { estado: "Maranhão", cor: 3, imagem: "imagens/estados/maranhao cor 3.png" },
+            { estado: "Mato Grosso", cor: 4, imagem: "imagens/estados/mato grosso cor 4.png" },
+            { estado: "Mato Grosso do Sul", cor: 1, imagem: "imagens/estados/mato grosso do sul cor 1.png" },
+            { estado: "Minas Gerais", cor: 2, imagem: "imagens/estados/minas gerais cor 2.png" },
+            { estado: "Pará", cor: 3, imagem: "imagens/estados/pará cor 3.png" },
+            { estado: "Paraíba", cor: 4, imagem: "imagens/estados/paraiba cor 4.png" },
+            { estado: "Paraná", cor: 1, imagem: "imagens/estados/parana cor 1.png" },
+            { estado: "Pernambuco", cor: 2, imagem: "imagens/estados/pernambuco cor2.png" },
+            { estado: "Piauí", cor: 3, imagem: "imagens/estados/piaui cor 3.png" },
+            { estado: "Rio de Janeiro", cor: 4, imagem: "imagens/estados/Rio de janeiro.png" },
+            { estado: "Rio Grande do Norte", cor: 1, imagem: "imagens/estados/Rio grande do norte.png" },
+            { estado: "Rio Grande do Sul", cor: 2, imagem: "imagens/estados/Rio grande do sul.png" },
+            { estado: "Rondônia", cor: 3, imagem: "imagens/estados/Rondonia.png" },
+            { estado: "Roraima", cor: 4, imagem: "imagens/estados/Roraima.png" },
+            { estado: "Santa Catarina", cor: 1, imagem: "imagens/estados/Santa catarina.png" },
+            { estado: "São Paulo", cor: 2, imagem: "imagens/estados/Sao Paulo.png" },
+            { estado: "Sergipe", cor: 3, imagem: "imagens/estados/Sergipe.png" },
+            { estado: "Tocantins", cor: 4, imagem: "imagens/estados/Tocantins.png" }
+        ];
+
+        let perguntasSelecionadas;
+        let perguntaAtual = 0;
+        let pontuacao = 0;
+
+        function iniciarQuiz() {
+            perguntasSelecionadas = perguntas.sort(() => 0.5 - Math.random()).slice(0, 8);
+            perguntaAtual = 0;
+            pontuacao = 0;
+            mostrarPergunta();
+        }
+
+        function mostrarPergunta() {
+            const pergunta = perguntasSelecionadas[perguntaAtual];
+            document.getElementById("estado").textContent = pergunta.estado;
+            document.getElementById("imagem-estado").src = pergunta.imagem;
+            document.getElementById("feedback").textContent = "";
+            document.getElementById("proxima").style.display = "none";
+            const opcoes = document.querySelectorAll(".opcao");
+            opcoes.forEach(botao => botao.style.display = "inline-block");
+        }
+
+        function verificarResposta(resposta) {
+            const pergunta = perguntasSelecionadas[perguntaAtual];
+            const feedback = document.getElementById("feedback");
+            const opcoes = document.querySelectorAll(".opcao");
+            if (resposta === pergunta.cor) {
+                feedback.textContent = "Correto!";
+                feedback.style.color = "green";
+                pontuacao++;
+            } else {
+                let corCorreta;
+                switch (pergunta.cor) {
+                    case 1:
+                        corCorreta = "AMARELO";
+                        break;
+                    case 2:
+                        corCorreta = "AZUL";
+                        break;
+                    case 3:
+                        corCorreta = "VERMELHO";
+                        break;
+                    case 4:
+                        corCorreta = "VERDE";
+                        break;
+                    default:
+                        corCorreta = "DESCONHECIDA";
+                }
+                feedback.innerHTML = `Não foi dessa vez. A resposta correta é a cor <span class="cor-${corCorreta.toLowerCase()}">${corCorreta}</span>`;
+                feedback.style.color = "white";
+            }
+            opcoes.forEach(botao => botao.style.display = "none");
+            document.getElementById("proxima").style.display = "inline-block";
+        }
+
+        function proximaPergunta() {
+            perguntaAtual++;
+            if (perguntaAtual < perguntasSelecionadas.length) {
+                mostrarPergunta();
+            } else {
+                salvarResultado();
+                mostrarResultado();
+            }
+        }
+
+        function salvarResultado() {
+            const nomeAluno = localStorage.getItem('nomeAluno');
+            const resultado = {
+                nome: nomeAluno,
+                pontuacao: pontuacao,
+                total: perguntasSelecionadas.length
+            };
+            let resultados = JSON.parse(localStorage.getItem('resultadosAlunos')) || [];
+            resultados.push(resultado);
+            localStorage.setItem('resultadosAlunos', JSON.stringify(resultados));
+        }
+
+        function mostrarResultado() {
+            const porcentagem = ((pontuacao / perguntasSelecionadas.length) * 100).toFixed(2);
+            document.querySelector(".container").innerHTML = `
+                <h1>Quiz Concluído!</h1>
+                <p>Sua pontuação foi: ${pontuacao} de ${perguntasSelecionadas.length}</p>
+                <p>Porcentagem de acerto: ${porcentagem}%</p>
+                <button onclick="window.location.href = 'index.html'">Voltar</button>
+            `;
+        }
+
+        window.onload = iniciarQuiz;
+    </script>
+</body>
+</html>
