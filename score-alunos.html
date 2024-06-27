@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedagames - Score dos Alunos</title>
+    <link rel="stylesheet" href="introducoes.css">
+    <style>
+        /* Estilo para a tabela */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px; /* Espaçamento interno das células */
+            text-align: left;
+        }
+
+        th {
+            background-color: #9f4caf; /* Cor de fundo dos cabeçalhos */
+        }
+
+        /* Espaçamento maior entre as colunas */
+        th:nth-child(1), td:nth-child(1) {
+            padding-right: 30px;
+        }
+
+        th:nth-child(2), td:nth-child(2) {
+            padding-right: 30px;
+        }
+
+        /* Estilo para o link "Próximo" */
+        #proximo {
+            margin-top: 20px;
+        }
+
+        #proximo a {
+            display: block;
+            padding: 10px 20px;
+            background-color: #F25A70;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        #proximo a:hover {
+            background-color: #ac3d4e;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="clara"> 
+            <img src="Projeto/Assets/Img/clara.png" alt="clara">
+        </div>
+        <div id="textos">
+            <p>Olá, Professor! Aqui está a tabela dos alunos</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome do Aluno</th>
+                        <th>Pontuação</th>
+                        <th>Total de Perguntas</th>
+                    </tr>
+                </thead>
+                <tbody id="tabela-resultados">
+                    <!-- Resultados serão inseridos aqui -->
+                </tbody>
+            </table>
+            <div id="proximo">
+                <a href="./index.html">Voltar</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Função para carregar os resultados dos alunos do localStorage
+        function carregarResultados() {
+            // Obtem os resultados do localStorage ou inicializa um array vazio se não houver dados
+            const resultados = JSON.parse(localStorage.getItem('resultadosAlunos')) || [];
+            const tabela = document.getElementById('tabela-resultados');
+            
+            // Limpa a tabela antes de adicionar os novos resultados
+            tabela.innerHTML = '';
+
+            // Itera sobre os resultados e adiciona linhas na tabela
+            resultados.forEach(resultado => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${resultado.nome}</td>
+                    <td>${resultado.pontuacao}</td>
+                    <td>${resultado.total}</td>
+                `;
+                tabela.appendChild(row);
+            });
+        }
+
+        // Chama a função de carregarResultados quando a janela carregar
+        window.onload = carregarResultados;
+    </script>
+</body>
+</html>
